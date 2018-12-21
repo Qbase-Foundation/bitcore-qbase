@@ -1,18 +1,18 @@
 {
-  "name": "ravencore",
+  "name": "ritocore",
   "version": "1.0.3",
-  "description": "A platform to build ravencoin and blockchain-based applications.",
+  "description": "A platform to build ritocoin and blockchain-based applications.",
   "author": "Under",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha test/** --recursive"
   },
   "bin": {
-    "ravencore": "./bin/ravencore",
-    "ravencored": "./bin/ravencored"
+    "ritocore": "./bin/ritocore",
+    "ritocored": "./bin/ritocored"
   },
   "keywords": [
-    "ravencoin",
+    "ritocoin",
     "transaction",
     "address",
     "p2p",
@@ -29,16 +29,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/underdarkskies/ravencore.git"
+    "url": "https://github.com/traysi/ritocore.git"
   },
   "browser": {
     "request": "browser-request"
   },
   "dependencies": {
-    "ravencore-lib": "underdarkskies/ravencore-lib",
-    "ravencore-node": "underdarkskies/ravencore-node#master-basic",
-    "insight-api": "underdarkskies/insight-api#master-basic",
-    "insight-ui": "underdarkskies/insight-ui#master-basic"
+    "ritocore-lib": "traysi/ritocore-lib",
+    "ritocore-node": "traysi/ritocore-node#master-basic",
+    "insight-api": "traysi/insight-api#master-basic",
+    "insight-ui": "traysi/insight-ui#master-basic"
   },
   "license": "MIT",
   "devDependencies": {

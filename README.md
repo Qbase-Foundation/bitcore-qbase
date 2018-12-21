@@ -1,14 +1,14 @@
-Ravencore-Lightweight
+Ritocore-Lightweight
 =======
 
-This is Under's fork of Bitpay's Bitcore that uses Ravencoin 2.1.1 It has a limited segwit support.
+This is Under's fork of Bitpay's Bitcore that uses Ritocoin 2.1.1 It has a limited segwit support.
 
-It is HIGHLY recommended to use https://github.com/underdarkskies/ravencore-deb to build and deploy packages for production use.
+It is HIGHLY recommended to use https://github.com/traysi/ritocore-deb to build and deploy packages for production use.
 
 ----
 Getting Started
 =====================================
-Deploying Ravencore full-stack manually:
+Deploying Ritocore full-stack manually:
 ----
 ````
 sudo apt-get update
@@ -20,18 +20,18 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | 
 nvm install 10.5.0
 nvm use 10.5.0
 
-#install ravencore
-git clone https://github.com/underdarkskies/ravencore.git
-cd ravencore && git checkout lightweight
+#install ritocore
+git clone https://github.com/traysi/ritocore.git
+cd ritocore && git checkout lightweight
 npm install -g --production
 ````
-Copy the following into a file named ravencore-node.json and place it in ~/.ravencore/ (be sure to customize username values(without angle brackets<>) and/or ports)
+Copy the following into a file named ritocore-node.json and place it in ~/.ritocore/ (be sure to customize username values(without angle brackets<>) and/or ports)
 ````json
 {
   "network": "livenet",
   "port": 3001,
   "services": [
-    "ravend",
+    "ritod",
     "web",
     "insight-api",
     "insight-ui"
@@ -48,14 +48,14 @@ Copy the following into a file named ravencore-node.json and place it in ~/.rave
     },
     "insight-api": {
       "routePrefix": "api",
-      "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/ravencoin/?convert=USD",
-      "coinShort": "RVN"
+      "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/ritocoin/?convert=USD",
+      "coinShort": "RITO"
     },
-    "ravend": {
-      "sendTxLog": "/home/<yourusername>/.ravencore/pushtx.log",
+    "ritod": {
+      "sendTxLog": "/home/<yourusername>/.ritocore/pushtx.log",
       "spawn": {
-        "datadir": "/home/<yourusername>/.ravencore/data",
-        "exec": "/home/<yourusername>/ravencore/node_modules/ravencore-node/bin/ravend",
+        "datadir": "/home/<yourusername>/.ritocore/data",
+        "exec": "/home/<yourusername>/ritocore/node_modules/ritocore-node/bin/ritod",
         "rpcqueue": 1000,
         "rpcport": 8766,
         "zmqpubrawtx": "tcp://127.0.0.1:28332",
@@ -73,7 +73,7 @@ Quick note on allowing socket.io from other services.
 "allowedOriginRegexp": "^https://<yoursubdomain>\\.<yourdomain>\\.<yourTLD>$",
 ````
 
-Copy the following into a file named raven.conf and place it in ~/.ravencore/data
+Copy the following into a file named rito.conf and place it in ~/.ritocore/data
 ````json
 server=1
 whitelist=127.0.0.1
@@ -85,9 +85,9 @@ zmqpubrawtx=tcp://127.0.0.1:28332
 zmqpubhashblock=tcp://127.0.0.1:28332
 rpcport=8766
 rpcallowip=127.0.0.1
-rpcuser=ravencoin
+rpcuser=ritocoin
 rpcpassword=local321 #change to something unique
-uacomment=ravencore-sl
+uacomment=ritocore-sl
 
 mempoolexpiry=72 # Default 336
 rpcworkqueue=1100
@@ -96,29 +96,29 @@ dbcache=1000
 maxtxfee=1.0
 dbmaxfilesize=64
 ````
-Launch your copy of ravencore:
+Launch your copy of ritocore:
 ````
-ravencored
+ritocored
 ````
-You can then view the Ravencoin block explorer at the location: `http://localhost:3001`
+You can then view the Ritocoin block explorer at the location: `http://localhost:3001`
 
 Create an Nginx proxy to forward port 80 and 443(with a snakeoil ssl cert)traffic:
 ----
-IMPORTANT: this "nginx-ravencore" config is not meant for production use
+IMPORTANT: this "nginx-ritocore" config is not meant for production use
 see this guide [here](https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/) for production usage
 ````
 sudo apt-get install -y nginx ssl-cert
 ````
-copy the following into a file named "nginx-ravencore" and place it in /etc/nginx/sites-available/
+copy the following into a file named "nginx-ritocore" and place it in /etc/nginx/sites-available/
 ````
 server {
     listen 80;
     listen 443 ssl;
         
     include snippets/snakeoil.conf;
-    root /home/ravencore/www;
-    access_log /var/log/nginx/ravencore-access.log;
-    error_log /var/log/nginx/ravencore-error.log;
+    root /home/ritocore/www;
+    access_log /var/log/nginx/ritocore-access.log;
+    error_log /var/log/nginx/ritocore-error.log;
     location / {
         proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;
@@ -135,95 +135,95 @@ server {
        add_header Content-Type text/plain;
        return 200 "User-agent: *\nallow: /\n";
     }
-    location /ravencore-hostname.txt {
-        alias /var/www/html/ravencore-hostname.txt;
+    location /ritocore-hostname.txt {
+        alias /var/www/html/ritocore-hostname.txt;
     }
 }
 ````
 Then enable your site:
 ````
-sudo ln -s /etc/nginx/sites-available/nginx-ravencore /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/nginx-ritocore /etc/nginx/sites-enabled
 sudo rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 sudo mkdir /etc/systemd/system/nginx.service.d
 sudo printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" | sudo tee /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 ````
-Upgrading Ravencore full-stack manually:
+Upgrading Ritocore full-stack manually:
 ----
 
 - This will leave the local blockchain copy intact:
-Shutdown the ravencored application first, and backup your unique raven.conf and ravencore-node.json
+Shutdown the ritocored application first, and backup your unique rito.conf and ritocore-node.json
 ````
 cd ~/
-rm -rf .npm .node-gyp ravencore
-rm .ravencore/data/raven.conf .ravencore/ravencore-node.json
+rm -rf .npm .node-gyp ritocore
+rm .ritocore/data/rito.conf .ritocore/ritocore-node.json
 
 #reboot
 
-git clone https://github.com/underdarkskies/ravencore.git
-cd ravencore && git checkout lightweight
+git clone https://github.com/traysi/ritocore.git
+cd ritocore && git checkout lightweight
 npm install -g --production
 ````
-(recreate your unique raven.conf and ravencore-node.json)
+(recreate your unique rito.conf and ritocore-node.json)
 
 - This will redownload a new blockchain copy:
 (Some updates may require you to reindex the blockchain data. If this is the case, redownloading the blockchain only takes 20 minutes)
-Shutdown the ravencored application first, and backup your unique raven.conf and ravencore-node.json
+Shutdown the ritocored application first, and backup your unique rito.conf and ritocore-node.json
 ````
 cd ~/
-rm -rf .npm .node-gyp ravencore
-rm -rf .ravencore
+rm -rf .npm .node-gyp ritocore
+rm -rf .ritocore
 
 #reboot
 
-git clone https://github.com/underdarkskies/ravencore.git
-cd ravencore && git checkout lightweight
+git clone https://github.com/traysi/ritocore.git
+cd ritocore && git checkout lightweight
 npm install -g --production
 ````
-(recreate your unique raven.conf and ravencore-node.json)
+(recreate your unique rito.conf and ritocore-node.json)
 
-Undeploying Ravencore full-stack manually:
+Undeploying Ritocore full-stack manually:
 ----
 ````
 nvm deactivate
 nvm uninstall 10.5.0
-rm -rf .npm .node-gyp ravencore
-rm .ravencore/data/raven.conf .ravencore/ravencore-node.json
+rm -rf .npm .node-gyp ritocore
+rm .ritocore/data/rito.conf .ritocore/ritocore-node.json
 ````
 
 ## Applications
 
-- [Node](https://github.com/underdarkskies/ravencore-node) - A full node with extended capabilities using Ravencoin Core
-- [Insight API](https://github.com/underdarkskies/insight-api) - A blockchain explorer HTTP API
-- [Insight UI](https://github.com/underdarkskies/insight) - A blockchain explorer web user interface
-- (to-do) [Wallet Service](https://github.com/underdarkskies/ravencore-wallet-service) - A multisig HD service for wallets
-- (to-do) [Wallet Client](https://github.com/underdarkskies/ravencore-wallet-client) - A client for the wallet service
-- (to-do) [CLI Wallet](https://github.com/underdarkskies/ravencore-wallet) - A command-line based wallet client
-- (to-do) [Angular Wallet Client](https://github.com/underdarkskies/angular-ravencore-wallet-client) - An Angular based wallet client
-- (to-do) [Copay](https://github.com/underdarkskies/copay) - An easy-to-use, multiplatform, multisignature, secure ravencoin wallet
+- [Node](https://github.com/traysi/ritocore-node) - A full node with extended capabilities using Ritocoin Core
+- [Insight API](https://github.com/traysi/insight-api) - A blockchain explorer HTTP API
+- [Insight UI](https://github.com/traysi/insight) - A blockchain explorer web user interface
+- (to-do) [Wallet Service](https://github.com/traysi/ritocore-wallet-service) - A multisig HD service for wallets
+- (to-do) [Wallet Client](https://github.com/traysi/ritocore-wallet-client) - A client for the wallet service
+- (to-do) [CLI Wallet](https://github.com/traysi/ritocore-wallet) - A command-line based wallet client
+- (to-do) [Angular Wallet Client](https://github.com/traysi/angular-ritocore-wallet-client) - An Angular based wallet client
+- (to-do) [Copay](https://github.com/traysi/copay) - An easy-to-use, multiplatform, multisignature, secure ritocoin wallet
 
 ## Libraries
 
-- [Lib](https://github.com/underdarkskies/ravencore-lib) - All of the core Ravencoin primatives including transactions, private key management and others
-- (to-do) [Payment Protocol](https://github.com/underdarkskies/ravencore-payment-protocol) - A protocol for communication between a merchant and customer
-- [P2P](https://github.com/underdarkskies/ravencore-p2p) - The peer-to-peer networking protocol
-- (to-do) [Mnemonic](https://github.com/underdarkskies/ravencore-mnemonic) - Implements mnemonic code for generating deterministic keys
-- (to-do) [Channel](https://github.com/underdarkskies/ravencore-channel) - Micropayment channels for rapidly adjusting ravencoin transactions
-- [Message](https://github.com/underdarkskies/ravencore-message) - Ravencoin message verification and signing
-- (to-do) [ECIES](https://github.com/underdarkskies/ravencore-ecies) - Uses ECIES symmetric key negotiation from public keys to encrypt arbitrarily long data streams.
+- [Lib](https://github.com/traysi/ritocore-lib) - All of the core Ritocoin primatives including transactions, private key management and others
+- (to-do) [Payment Protocol](https://github.com/traysi/ritocore-payment-protocol) - A protocol for communication between a merchant and customer
+- [P2P](https://github.com/traysi/ritocore-p2p) - The peer-to-peer networking protocol
+- (to-do) [Mnemonic](https://github.com/traysi/ritocore-mnemonic) - Implements mnemonic code for generating deterministic keys
+- (to-do) [Channel](https://github.com/traysi/ritocore-channel) - Micropayment channels for rapidly adjusting ritocoin transactions
+- [Message](https://github.com/traysi/ritocore-message) - Ritocoin message verification and signing
+- (to-do) [ECIES](https://github.com/traysi/ritocore-ecies) - Uses ECIES symmetric key negotiation from public keys to encrypt arbitrarily long data streams.
 
 ## Security
 
-We're using Ravencore in production, but please use common sense when doing anything related to finances! We take no responsibility for your implementation decisions.
+We're using Ritocore in production, but please use common sense when doing anything related to finances! We take no responsibility for your implementation decisions.
 
 ## Contributing
 
-Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/underdarkskies/ravencore/blob/master/CONTRIBUTING.md) file.
+Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/traysi/ritocore/blob/master/CONTRIBUTING.md) file.
 
 To verify signatures, use the following PGP keys:
-- @underdarkskies: http://pgp.mit.edu/pks/lookup?op=get&search=0x009BAB88B3BD190C `EE6F 9673 1EF6 ED85 B12B  0A3F 009B AB88 B3BD 190C`
+- @traysi: http://pgp.mit.edu/pks/lookup?op=get&search=0x009BAB88B3BD190C `EE6F 9673 1EF6 ED85 B12B  0A3F 009B AB88 B3BD 190C`
 
 ## License
 
-Code released under [the MIT license](https://github.com/underdarkskies/ravencore/blob/master/LICENSE).
+Code released under [the MIT license](https://github.com/traysi/ritocore/blob/master/LICENSE).

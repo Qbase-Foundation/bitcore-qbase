@@ -3,7 +3,7 @@
 'use strict';
 
 var path = require('path');
-var ravencored = require('ravencore-node/lib/cli/ravencored');
+var ritocored = require('ritocore-node/lib/cli/ritocored');
 var servicesPath = path.resolve(__dirname, '../');
 var additionalServices = ['insight-api', 'insight-ui'];
-ravencored(servicesPath, additionalServices);
+ritocored(servicesPath, additionalServices);
