@@ -1,8 +1,8 @@
 {
-  "name": "ravencore",
-  "main": "./ravencore.min.js",
+  "name": "ritocore",
+  "main": "./ritocore.min.js",
   "version": "1.0.1",
-  "homepage": "https://github.com/underdarkskies",
+  "homepage": "https://github.com/traysi",
   "authors": [
     "Under"
   ],
@@ -11,8 +11,8 @@
     "globals"
   ],
   "keywords": [
-    "ravencoin",
-    "ravencore",
+    "ritocoin",
+    "ritocore",
     "btc",
     "satoshi"
   ],

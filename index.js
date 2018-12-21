@@ -1,5 +1,5 @@
 'use strict';
 
-var ravencore = require('ravencore-lib');
+var ritocore = require('ritocore-lib');
 
-module.exports = ravencore;
+module.exports = ritocore;

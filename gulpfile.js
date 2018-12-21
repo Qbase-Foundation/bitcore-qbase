@@ -1,5 +1,5 @@
 
 
-var ravencoreTasks = require('ravencore-build');
+var ritocoreTasks = require('ritocore-build');
 
-ravencoreTasks();
+ritocoreTasks();
