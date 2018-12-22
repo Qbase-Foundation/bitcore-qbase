@@ -1,9 +1,7 @@
 Ritocore
 =======
 
-This is Under's fork of Bitpay's Bitcore that uses Ritocoin 2.1.1 It has a limited segwit support.
-
-It is HIGHLY recommended to use https://github.com/traysi/ritocore-deb to build and deploy packages for production use.
+This is Traysi's fork of Bitpay's Bitcore/Under's Ravencore for Ritocoin. It has a limited segwit support.
 
 ----
 Getting Started
@@ -30,7 +28,7 @@ sudo systemctl enable mongod.service
 #install ritocore
 sudo ln -s /usr/bin/python2.7 /usr/bin/python
 git clone https://github.com/traysi/ritocore.git
-cd ritocore && git checkout lightweight
+cd ritocore && git checkout master
 npm install -g --production
 ````
 Copy the following into a file named ritocore-node.json and place it in ~/.ritocore/ (be sure to customize username values(without angle brackets<>) and/or ports)
@@ -73,7 +71,7 @@ Copy the following into a file named ritocore-node.json and place it in ~/.ritoc
         "datadir": "/home/<yourusername>/.ritocore/data",
         "exec": "/home/<yourusername>/ritocore/node_modules/ritocore-node/bin/ritod",
         "rpcqueue": 1000,
-        "rpcport": 8766,
+        "rpcport": 8501,
         "zmqpubrawtx": "tcp://127.0.0.1:28332",
         "zmqpubhashblock": "tcp://127.0.0.1:28332"
       }
@@ -108,7 +106,7 @@ timestampindex=1
 spentindex=1
 zmqpubrawtx=tcp://127.0.0.1:28332
 zmqpubhashblock=tcp://127.0.0.1:28332
-rpcport=8766
+rpcport=8501
 rpcallowip=127.0.0.1
 rpcuser=ritocoin
 rpcpassword=local321 #change to something unique
@@ -249,9 +247,6 @@ We're using Ritocore in production, but please use common sense when doing anyth
 ## Contributing
 
 Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/traysi/ritocore/blob/master/CONTRIBUTING.md) file.
-
-To verify signatures, use the following PGP keys:
-- @traysi: http://pgp.mit.edu/pks/lookup?op=get&search=0x009BAB88B3BD190C `EE6F 9673 1EF6 ED85 B12B  0A3F 009B AB88 B3BD 190C`
 
 ## License
 
