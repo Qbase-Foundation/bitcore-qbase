@@ -1,5 +1,5 @@
 
 
-var ritocoreTasks = require('ritocore-build');
+var qbasecoreTasks = require('qbasecore-build');
 
-ritocoreTasks();
+qbasecoreTasks();

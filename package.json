@@ -1,18 +1,18 @@
 {
-  "name": "ritocore",
+  "name": "qbasecore",
   "version": "1.0.3",
-  "description": "A platform to build ritocoin and blockchain-based applications.",
+  "description": "A platform to build qbasecoin and blockchain-based applications.",
   "author": "Under",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha test/** --recursive"
   },
   "bin": {
-    "ritocore": "./bin/ritocore",
-    "ritocored": "./bin/ritocored"
+    "qbasecore": "./bin/qbasecore",
+    "qbasecored": "./bin/qbasecored"
   },
   "keywords": [
-    "ritocoin",
+    "qbasecoin",
     "transaction",
     "address",
     "p2p",
@@ -29,14 +29,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/traysi/ritocore.git"
+    "url": "https://github.com/traysi/qbasecore.git"
   },
   "browser": {
     "request": "browser-request"
   },
   "dependencies": {
-    "ritocore-lib": "traysi/ritocore-lib",
-    "ritocore-node": "traysi/ritocore-node",
+    "qbasecore-lib": "traysi/qbasecore-lib",
+    "qbasecore-node": "traysi/qbasecore-node",
     "insight-api": "traysi/insight-api",
     "insight-ui": "traysi/insight-ui"
   },

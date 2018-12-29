@@ -1,5 +1,5 @@
 'use strict';
 
-var ritocore = require('ritocore-lib');
+var qbasecore = require('qbasecore-lib');
 
-module.exports = ritocore;
+module.exports = qbasecore;
