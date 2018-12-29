@@ -1,4 +1,4 @@
-Ritocore
+NOT YET FUNCTIONAL
 =======
 
 This is Traysi's fork of Bitpay's Bitcore/Under's Ravencore for Ritocoin. It has a limited segwit support.
