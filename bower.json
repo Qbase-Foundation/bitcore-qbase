@@ -1,6 +1,6 @@
 {
-  "name": "ritocore",
-  "main": "./ritocore.min.js",
+  "name": "qbasecore",
+  "main": "./qbasecore.min.js",
   "version": "1.0.1",
   "homepage": "https://github.com/traysi",
   "authors": [
@@ -11,8 +11,8 @@
     "globals"
   ],
   "keywords": [
-    "ritocoin",
-    "ritocore",
+    "qbasecoin",
+    "qbasecore",
     "btc",
     "satoshi"
   ],

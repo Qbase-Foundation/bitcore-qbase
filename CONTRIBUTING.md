@@ -1,7 +1,7 @@
 Contributing to Ritocore
 =======
 
-We're working hard to make *ritocore* the most powerful JavaScript library for working with ritocoin. Our goal is to have *ritocore* be a library that can be used by anyone interested in ritocoin, and to level expertise differences with great design and documentation.
+We're working hard to make *qbasecore* the most powerful JavaScript library for working with qbasecoin. Our goal is to have *qbasecore* be a library that can be used by anyone interested in qbasecoin, and to level expertise differences with great design and documentation.
 
 ## Community
 
@@ -20,7 +20,7 @@ Ideally, please make sure to run:
 
 ## Design Guidelines
 
-These are some global design goals in ritocore that any change must adhere.
+These are some global design goals in qbasecore that any change must adhere.
 
 ### D1 - Naming Matters
 
@@ -40,7 +40,7 @@ Write a test for all your code. We encourage Test Driven Development so we know 
 
 Interfaces should accept as many types of arguments as possible, so there's no mental tax on using them: we want to avoid questions such as "should I use a string here or a buffer?", "what happens if I'm not sure if the type of this variable is an Address instance or a string with it encoded in base-58?" or "what kind of object will I receive after calling this function?".
 
-Accept a wide variety of use cases and arguments, always return an internal form of an object. For example, the class `PublicKey` can accept strings or buffers with a DER encoded public key (either compressed or uncompressed), another PublicKey, a PrivateKey, or a Point, an instance of the `elliptic.js` library with the point in ritocoin's elliptic curve that represents the public key.
+Accept a wide variety of use cases and arguments, always return an internal form of an object. For example, the class `PublicKey` can accept strings or buffers with a DER encoded public key (either compressed or uncompressed), another PublicKey, a PrivateKey, or a Point, an instance of the `elliptic.js` library with the point in qbasecoin's elliptic curve that represents the public key.
 
 ### D4 - Consistency Everywhere
 
@@ -91,7 +91,7 @@ var bufferUtil = require('./util/buffer');
 
 #### G7 - Standard Methods
 
-When possible, ritocore objects should have standard methods on an instance prototype:
+When possible, qbasecore objects should have standard methods on an instance prototype:
 * `toObject/toJSON` - A plain JavaScript object that `JSON.stringify` can call
 * `toString` - A string representation of the instance
 * `toBuffer` - A hex Buffer
@@ -116,7 +116,7 @@ var tx = new Transaction(data);
 
 ### Errors
 
-#### E1 - Use ritocore.Errors
+#### E1 - Use qbasecore.Errors
 
 We've designed a structure for Errors to follow and are slowly migrating to it.
 
@@ -206,14 +206,14 @@ Don't write long tests, write helper functions to make them be as short and conc
 
 Inputs for tests should not be generated randomly. Also, the type and structure of outputs should be checked.
 
-#### T3 - Require 'ritocore' and Look up Classes from There
+#### T3 - Require 'qbasecore' and Look up Classes from There
 
-This helps to make tests more useful as examples, and more independent of where they are placed. This also helps prevent forgetting to include all submodules in the ritocore object.
+This helps to make tests more useful as examples, and more independent of where they are placed. This also helps prevent forgetting to include all submodules in the qbasecore object.
 
 DO:
 ```javascript
-var ritocore = require('../');
-var PublicKey = ritocore.PublicKey;
+var qbasecore = require('../');
+var PublicKey = qbasecore.PublicKey;
 ```
 DON'T:
 ```javascript
@@ -246,7 +246,7 @@ git checkout -b remove/some-file
 
 We expect pull requests to be rebased to the master branch before merging:
 ```sh
-git remote add under git@github.com:traysi/ritocore.git
+git remote add under git@github.com:traysi/qbasecore.git
 git pull --rebase under master
 ```
 
@@ -258,11 +258,11 @@ git push origin your_branch_name
 git push origin feature/some-new-stuff
 git push origin fix/some-bug
 ```
-Finally go to [github.com/traysi/ritocore](https://github.com/traysi/ritocore) in your web browser and issue a new pull request.
+Finally go to [github.com/traysi/qbasecore](https://github.com/traysi/qbasecore) in your web browser and issue a new pull request.
 
-Main contributors will review your code and possibly ask for changes before your code is pulled in to the main repository.  We'll check that all tests pass, review the coding style, and check for general code correctness. If everything is OK, we'll merge your pull request and your code will be part of ritocore.
+Main contributors will review your code and possibly ask for changes before your code is pulled in to the main repository.  We'll check that all tests pass, review the coding style, and check for general code correctness. If everything is OK, we'll merge your pull request and your code will be part of qbasecore.
 
 If you have any questions feel free to post them to
-[github.com/traysi/ritocore/issues](https://github.com/traysi/ritocore/issues).
+[github.com/traysi/qbasecore/issues](https://github.com/traysi/qbasecore/issues).
 
 Thanks for your time and code!
